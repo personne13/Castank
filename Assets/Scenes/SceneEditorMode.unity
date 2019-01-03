@@ -248,6 +248,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3856531306719553635, guid: ae899d720b21d144db8735ed6c101aa4,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754128191754638927, guid: ae899d720b21d144db8735ed6c101aa4,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754128191073842857, guid: ae899d720b21d144db8735ed6c101aa4,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754128191394222528, guid: ae899d720b21d144db8735ed6c101aa4,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754128191163154353, guid: ae899d720b21d144db8735ed6c101aa4,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754128192234736605, guid: ae899d720b21d144db8735ed6c101aa4,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754128192962212499, guid: ae899d720b21d144db8735ed6c101aa4,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae899d720b21d144db8735ed6c101aa4, type: 3}
 --- !u!1 &236157137
