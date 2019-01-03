@@ -27,7 +27,8 @@ public class AddElement : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if(hit.collider.gameObject.name == "plug")
+                int layerPlug = LayerMask.NameToLayer("Plug");
+                if (hit.collider.gameObject.layer == layerPlug)
                 {
                     Transform attachedElement = hit.collider.gameObject.transform.parent;
                     Transform plug = currentSelection.transform.GetChild(currentPlugIndex);
@@ -38,6 +39,9 @@ public class AddElement : MonoBehaviour
 
                     GameObject newElement = Instantiate(currentSelection, newElementPosition, attachedElement.rotation);
                     newElement.transform.RotateAround(plugged.position, Vector3.Cross(normalPlug, normalPlugged), -Vector3.Angle(normalPlug, normalPlugged));
+                    FixedJoint newJoint = newElement.AddComponent<FixedJoint>();
+
+                    newJoint.connectedBody = hit.collider.attachedRigidbody;
                 }
             }
         }
