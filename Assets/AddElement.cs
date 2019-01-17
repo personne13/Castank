@@ -7,7 +7,6 @@ public class AddElement : MonoBehaviour
     public GameObject currentSelection;
     private GameObject previewedObject;
 
-
     private GameObject test;
 
     private int currentPlugIndex = 0;
@@ -22,7 +21,7 @@ public class AddElement : MonoBehaviour
     void Update()
     {
         PreviewEdition();
-        //CheckCursorCollision();
+        EventHandler();
     }
 
     void PreviewEdition()
@@ -48,19 +47,16 @@ public class AddElement : MonoBehaviour
                 
                 previewedObject = Instantiate(currentSelection, newElementPosition, attachedElement.rotation);
 
-                foreach (Rigidbody r in previewedObject.GetComponentsInChildren<Rigidbody>())
-                {
-                    r.isKinematic = true;
-                }
+                SetObjectKinematic(previewedObject, true);
+
                 Vector3 axisRotation = Vector3.Cross(normalPlug, normalPlugged);
-                if (Vector3.Cross(normalPlug, normalPlugged) != Vector3.zero)
-                    previewedObject.transform.RotateAround(plugged.position, axisRotation, Vector3.Angle(normalPlug, normalPlugged));
-                else
-                    previewedObject.transform.RotateAround(plugged.position, Vector3.up, Vector3.Angle(normalPlug, normalPlugged));
+                if (Vector3.Cross(normalPlug, normalPlugged) == Vector3.zero)//if the forward vectors are in the same direction, any axis is valid
+                    axisRotation = Vector3.up;
+
+                previewedObject.transform.RotateAround(plugged.position, axisRotation, Vector3.Angle(normalPlug, normalPlugged));
             }
             else
             {
-                //ResetPreview();
             }
         }
         else
@@ -78,30 +74,22 @@ public class AddElement : MonoBehaviour
         }
     }
 
-    void CheckCursorCollision()
+    void SetObjectKinematic(GameObject obj, bool isKinematic)
+    {
+        foreach (Rigidbody r in obj.GetComponentsInChildren<Rigidbody>())
+        {
+            r.isKinematic = isKinematic;
+        }
+    }
+
+    void EventHandler()
     {
         if(Input.GetButton("Fire1"))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+
+            if(previewedObject != null)
             {
-                int layerPlug = LayerMask.NameToLayer("Plug");
-                if (hit.collider.gameObject.layer == layerPlug)
-                {
-                    Transform attachedElement = hit.collider.gameObject.transform.parent;
-                    Transform plug = currentSelection.transform.GetChild(currentPlugIndex);
-                    Transform plugged = hit.collider.transform;
-                    Vector3 newElementPosition = plugged.position - plug.position;
-                    Vector3 normalPlug = plug.forward;
-                    Vector3 normalPlugged = plugged.forward;
-
-                    GameObject newElement = Instantiate(currentSelection, newElementPosition, attachedElement.rotation);
-                    newElement.transform.RotateAround(plugged.position, Vector3.Cross(normalPlug, normalPlugged), -Vector3.Angle(normalPlug, normalPlugged));
-                    FixedJoint newJoint = newElement.AddComponent<FixedJoint>();
-
-                    newJoint.connectedBody = hit.collider.attachedRigidbody;
-                }
+                previewedObject = null;
             }
         }
     }
