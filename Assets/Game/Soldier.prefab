@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 23217642554843524}
   - component: {fileID: 136821461038777760}
   - component: {fileID: 54504087828195510}
-  - component: {fileID: 114028947908777232}
+  - component: {fileID: 114845065450819870}
   m_Layer: 0
-  m_Name: Character
+  m_Name: Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &114028947908777232
+--- !u!114 &114845065450819870
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,10 +109,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1181025530754488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6404cb8f381836a43a7ef18fc2e7722a, type: 3}
+  m_Script: {fileID: 11500000, guid: e6367bcd07e0d124e9f38a6c511dd955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnnemy: 1
+  sword: {fileID: 114980928929836302, guid: 6e926d4c1d667aa44ac34694446f50da, type: 2}
 --- !u!136 &136821461038777760
 CapsuleCollider:
   m_ObjectHideFlags: 1
