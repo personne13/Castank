@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AddElement : MonoBehaviour
 {
-    public GameObject currentSelection;
-    private GameObject previewedObject;
+    public TrapElement currentSelection;
+    private TrapElement previewedObject;
 
     private GameObject test;
 
@@ -20,11 +20,12 @@ public class AddElement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PreviewEdition();
+        if (!PreviewEdition())
+            ResetPreview();
         EventHandler();
     }
 
-    void PreviewEdition()
+    bool PreviewEdition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -33,9 +34,9 @@ public class AddElement : MonoBehaviour
             int layerPlug = LayerMask.NameToLayer("Plug");
             if (hit.collider.gameObject.layer == layerPlug)
             {
-                if(previewedObject != null)
+                if (previewedObject != null)
                 {
-                    return;
+                    return true;
                 }
 
                 Transform attachedElement = hit.collider.gameObject.transform.parent;
@@ -44,7 +45,7 @@ public class AddElement : MonoBehaviour
                 Vector3 newElementPosition = plugged.position + plug.position;
                 Vector3 normalPlug = plug.forward;
                 Vector3 normalPlugged = plugged.forward;
-                
+
                 previewedObject = Instantiate(currentSelection, newElementPosition, attachedElement.rotation);
 
                 SetObjectKinematic(previewedObject, true);
@@ -54,42 +55,43 @@ public class AddElement : MonoBehaviour
                     axisRotation = Vector3.up;
 
                 previewedObject.transform.RotateAround(plugged.position, axisRotation, Vector3.Angle(normalPlug, normalPlugged));
+                return true;
             }
-            else
-            {
-            }
+            return true;
         }
-        else
-        {
-            ResetPreview();
-        }
+        return false;
     }
 
     void ResetPreview()
     {
         if (previewedObject != null)
         {
-            Object.Destroy(previewedObject);
+            Object.Destroy(previewedObject.gameObject);
             previewedObject = null;
         }
     }
 
-    void SetObjectKinematic(GameObject obj, bool isKinematic)
+    void SetObjectKinematic(TrapElement obj, bool isKinematic)
     {
         foreach (Rigidbody r in obj.GetComponentsInChildren<Rigidbody>())
         {
             r.isKinematic = isKinematic;
         }
+        BoxCollider box = obj.gameObject.AddComponent<BoxCollider>();
+        box.isTrigger = isKinematic;
     }
 
     void EventHandler()
     {
         if(Input.GetButton("Fire1"))
         {
-
             if(previewedObject != null)
             {
-                previewedObject = null;
+                if (previewedObject.CanInstantiate())
+                {
+                    previewedObject.instantiateTrap();
+                    previewedObject = null;
+                }
             }
         }
     }

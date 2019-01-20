@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1645674087629636476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3856531306719553640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5ee8985a8307c4696f3460c2965059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4333677051861829567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10,7 +22,12 @@ PrefabInstance:
     - target: {fileID: 693966226578059223, guid: f42e652b20083c44b8f71a0d7c37a5d3,
         type: 3}
       propertyPath: m_Name
-      value: Cube Variant
+      value: TrapElementBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 693966226578059228, guid: f42e652b20083c44b8f71a0d7c37a5d3,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 693966226578059227, guid: f42e652b20083c44b8f71a0d7c37a5d3,
         type: 3}
@@ -67,17 +84,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 693966226578059228, guid: f42e652b20083c44b8f71a0d7c37a5d3,
+    - target: {fileID: 693966226578059224, guid: f42e652b20083c44b8f71a0d7c37a5d3,
         type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7034389106679353840, guid: f42e652b20083c44b8f71a0d7c37a5d3,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 0
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7034389106269679894, guid: f42e652b20083c44b8f71a0d7c37a5d3,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7034389106197510158, guid: f42e652b20083c44b8f71a0d7c37a5d3,
         type: 3}
       propertyPath: m_UseGravity
       value: 0
@@ -87,7 +104,7 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7034389106197510158, guid: f42e652b20083c44b8f71a0d7c37a5d3,
+    - target: {fileID: 7034389106679353840, guid: f42e652b20083c44b8f71a0d7c37a5d3,
         type: 3}
       propertyPath: m_UseGravity
       value: 0
@@ -104,3 +121,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f42e652b20083c44b8f71a0d7c37a5d3, type: 3}
+--- !u!1 &3856531306719553640 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 693966226578059223, guid: f42e652b20083c44b8f71a0d7c37a5d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 4333677051861829567}
+  m_PrefabAsset: {fileID: 0}
