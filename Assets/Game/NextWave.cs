@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NextWave : MonoBehaviour {
     public Character soldier;
+    public Character archer;
     private int waveNum = 0;
     private int nbUnits = 10;
     private int nbUnitsSent = 0;
@@ -76,9 +77,20 @@ public class NextWave : MonoBehaviour {
     {
         float angle = Random.Range(0.0f, 2*Mathf.PI);
         //TODO: Instantiate different kind of troops here
-        Soldier c = Instantiate((Soldier)soldier, new Vector3(radius*Mathf.Cos(angle), 0.1f, radius * Mathf.Sin(angle)), Quaternion.identity);
-        c.SetEnnemy();
-        Ennemies.Add(c);
+        if (Random.Range(0.0f, 1.0f) > 0.5f)
+        {
+            Soldier c;
+            c = Instantiate((Soldier)soldier, new Vector3(radius*Mathf.Cos(angle), 0.1f, radius * Mathf.Sin(angle)), Quaternion.identity);
+            c.SetEnnemy();
+            Ennemies.Add(c);
+        }
+        else
+        {
+            Archer c;
+            c = Instantiate((Archer)archer, new Vector3(radius * Mathf.Cos(angle), 0.1f, radius * Mathf.Sin(angle)), Quaternion.identity);
+            c.SetEnnemy();
+            Ennemies.Add(c);
+        }
         nbUnitsSent++;
         timer = 0;
     }

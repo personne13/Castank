@@ -100,7 +100,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &114572633303175980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc637af9e20340f48a6df7f2af47d99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 114980928929836302, guid: 6e926d4c1d667aa44ac34694446f50da,
+  projectile: {fileID: 114340079884196434, guid: 3be8ee79c91dc074cb502a2310194667,
     type: 2}
 --- !u!136 &136213835541045260
 CapsuleCollider:

@@ -5,14 +5,20 @@ using UnityEngine;
 public class Archer : Character {
 
     public Weapon projectile;
-    private Weapon p;
     private int ressourceGain = 2;
     //new private int life = 200;
-    private int scope = 30;
+    private int scope = 15;
+    private float deltaTimeShoot = 0.4f;
+    private float timer = 0.0f;
+    private bool isShooting = false;
+    private int turnDir = 0;
+
 
     // Use this for initialization
     new void Awake()
     {
+        //speed = 17.0f;
+        turnDir = Mathf.FloorToInt(Random.Range(0.0f, 0.3f) * 10) - 1;
         base.Awake();
     }
 
@@ -32,33 +38,27 @@ public class Archer : Character {
         float step = speed * Time.fixedDeltaTime;
         if (isEnnemy)
         {
-            Character target = Game.getClosestTroop(transform.position, 40);
-            if (target != null)
+            Character target = Game.getClosestTroop(transform.position, 30);
+            archerBehaviour(target, step);
+            if (target == null)
             {
-                Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
-                transform.rotation = Quaternion.LookRotation(newDir);
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-            }
-            else
-            {
-                Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), -new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
-                transform.rotation = Quaternion.LookRotation(newDir);
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, 0), step);
+                if (transform.position.magnitude > scope/2.0f)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, 0), step);
+                }
             }
         }
         else
         {
             Character target = NextWave.getClosestEnnemy(transform.position, 30);
-            if (target != null)
-            {
-                Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
-                transform.rotation = Quaternion.LookRotation(newDir);
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-            }
-            else
+            archerBehaviour(target, step);
+            if (target == null)
             {
                 Vector3 pos = transform.position - spoonPosition;
-                transform.position = Vector3.MoveTowards(transform.position, spoonPosition, step);
+                if (pos.magnitude > 0.2)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, spoonPosition, step);
+                }
             }
 
         }
@@ -77,5 +77,63 @@ public class Archer : Character {
         isEnnemy = true;
     }
 
+    private void archerBehaviour(Character target, float step)
+    {
+        Vector3 targetPos = new Vector3(0, 0, 0);
+        if (target!= null)
+        {
+            targetPos = target.transform.position;
+        } 
+
+        if (target != null || isEnnemy)
+        {
+            Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), new Vector3(targetPos.x, 0, targetPos.z) - new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
+            transform.rotation = Quaternion.LookRotation(newDir);
+            Vector3 v = targetPos - transform.position;
+            if (v.magnitude > scope*0.9f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
+            }
+            else if (v.magnitude < 5)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, transform.position - v, step);
+            }
+            if (v.magnitude < scope)
+            {
+                if (!isShooting)
+                {
+                    timer = 0.0f;
+                }
+                else
+                {
+                    timer += Time.fixedDeltaTime;
+                }
+                if (timer > deltaTimeShoot)
+                {
+                    Projectile p = Instantiate((Projectile)projectile, transform.position + transform.forward + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                    if (isEnnemy)
+                    {
+                        p.SetEnnemy();
+                    }
+                    p.GetComponent<Rigidbody>().velocity = transform.forward.normalized * 30;
+                    timer = 0.0f;
+                }
+                isShooting = true;
+
+                //transform.position = Vector3.MoveTowards(transform.position, turnDir * Vector3.Cross(target.transform.position.normalized, new Vector3(0, 1, 0)).normalized, step*10);
+            }
+            else
+            {
+                isShooting = false;
+            }
+        }
+        else
+        {
+            //if (isEnnemy && transform.)
+            Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), -new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
+            transform.rotation = Quaternion.LookRotation(newDir);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, 0), step);
+        }
+    }
 
 }

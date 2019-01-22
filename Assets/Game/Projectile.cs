@@ -2,34 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour{
-    protected int damage = 100;
-    protected bool isEnnemy = false;
-
-	// Use this for initialization
-	void Start () {
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public void SetEnnemy() {
-        isEnnemy = true;
-    }
+public class Projectile : Weapon
+{
 
     private void OnCollisionEnter(Collision collision)
     {
         Character c = collision.gameObject.GetComponent<Character>();
-        if (c != null) {
+        if (c != null)
+        {
             c.damage(damage, isEnnemy);
         }
         Game g = collision.gameObject.GetComponent<Game>();
-        if (g != null) {
+        if (g != null)
+        {
             g.damage(damage, isEnnemy);
         }
-
+        
+        Destroy(gameObject);
 
     }
 }

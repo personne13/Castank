@@ -32,7 +32,7 @@ public class Soldier : Character {
         float step = speed * Time.fixedDeltaTime;
         if (isEnnemy)
         {
-            Character target = Game.getClosestTroop(transform.position, 10);
+            Character target = Game.getClosestTroop(transform.position, 20);
             if (target != null)
             {
                 Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
@@ -76,8 +76,7 @@ public class Soldier : Character {
 
     public new void SetEnnemy()
     {
-        GetComponent<Renderer>().material.color = Color.red;
-        isEnnemy = true;
+        base.SetEnnemy();
         if (s != null)
         {
             s.SetEnnemy();

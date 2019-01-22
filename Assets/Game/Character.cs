@@ -19,6 +19,7 @@ public class Character : MonoBehaviour {
     public virtual void SetEnnemy()
     {
         isEnnemy = true;
+        GetComponent<Renderer>().material.color = Color.red;
     }
 
     public bool isEnnemyBool()
@@ -28,7 +29,8 @@ public class Character : MonoBehaviour {
 
     // Update is called once per frame
     protected void Update () {
-        if (life <= 0) {
+        
+        if (life <= 0 || transform.position.y <-2) {
             //Debug.Log("dead");
             if (isEnnemy)
             {
@@ -42,6 +44,8 @@ public class Character : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+
 
     
 

@@ -6,7 +6,7 @@ public class Game : MonoBehaviour {
     public Character soldier;
     public Character archer;
     private int CastleLife = 10000;
-    static private int Ressources = 400;
+    static private int Ressources = 100000;
     static private List<Character> Troops = new List<Character>();
 
     // Use this for initialization
@@ -25,12 +25,11 @@ public class Game : MonoBehaviour {
             int ressourcesNeeded = 50;
             if (Ressources >= ressourcesNeeded)
             {
-                float r = Random.Range(0.0f, 1.0f) * 2 * Mathf.PI;
                 float R = 10;
                 for (int k =0; k < R; k++)
                 {
-                Soldier c = Instantiate((Soldier)soldier, new Vector3(10*Mathf.Cos(2*Mathf.PI*k/R), 0.55f, 10*Mathf.Sin(2* Mathf.PI*k / R)), Quaternion.identity);
-                Troops.Add(c);
+                    Soldier c = Instantiate((Soldier)soldier, new Vector3(10*Mathf.Cos(2*Mathf.PI*k/R), 0.55f, 10*Mathf.Sin(2* Mathf.PI*k / R)), Quaternion.identity);
+                    Troops.Add(c);
 
                 }
                 Ressources -= ressourcesNeeded;
@@ -45,7 +44,6 @@ public class Game : MonoBehaviour {
             int ressourcesNeeded = 80;
             if (Ressources >= ressourcesNeeded)
             {
-                float r = Random.Range(0.0f, 1.0f) * 2 * Mathf.PI;
                 float R = 5;
                 for (int k = 0; k < R; k++)
                 {
