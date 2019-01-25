@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour {
     public Character soldier;
     public Character archer;
+    public Character bomber;
     private int CastleLife = 10000;
     static private int Ressources = 500;
     static private List<Character> Troops = new List<Character>();
@@ -30,9 +31,8 @@ public class Game : MonoBehaviour {
             int ressourcesNeeded = 50;
             if (Ressources >= ressourcesNeeded)
             {
-                Soldier c = Instantiate((Soldier)soldier, new Vector3(-10, 0.55f, 10), Quaternion.identity);
+                Soldier c = Instantiate((Soldier)soldier, new Vector3(-10, 0.55f, -10), Quaternion.identity);
                 Troops.Add(c);
-                Ressources -= ressourcesNeeded;
             }
             else
             {
@@ -44,14 +44,8 @@ public class Game : MonoBehaviour {
             int ressourcesNeeded = 80;
             if (Ressources >= ressourcesNeeded)
             {
-                float R = 5;
-                for (int k = 0; k < R; k++)
-                {
-                    Archer c = Instantiate((Archer)archer, new Vector3(10 * Mathf.Cos(2 * Mathf.PI * k / R), 0.55f, 10 * Mathf.Sin(2 * Mathf.PI * k / R)), Quaternion.identity);
-                    Troops.Add(c);
-
-                }
-                Ressources -= ressourcesNeeded;
+                BomberMan c = Instantiate((BomberMan)bomber, new Vector3(-10, 0.55f, -10), Quaternion.identity);
+                Troops.Add(c);
             }
             else
             {

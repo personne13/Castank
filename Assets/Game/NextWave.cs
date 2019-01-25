@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class NextWave : MonoBehaviour {
     public Character soldier;
     public Character archer;
+    public Character bomber;
     private int waveNum = 0;
     private int nbUnits = 10;
     private int nbUnitsSent = 0;
@@ -83,17 +84,25 @@ public class NextWave : MonoBehaviour {
     {
         float angle = Random.Range(0.0f, 2*Mathf.PI);
         //TODO: Instantiate different kind of troops here
-        if (Random.Range(0.0f, 1.0f) > 0f)
+        float r = Random.Range(0f, 1f);
+        if (r > 0.5f)
         {
             Soldier c;
-            c = Instantiate((Soldier)soldier, new Vector3(radius*Mathf.Cos(angle), 0.1f, radius * Mathf.Sin(angle)), Quaternion.identity);
+            c = Instantiate((Soldier)soldier, new Vector3(radius*Mathf.Cos(angle), 1f, radius * Mathf.Sin(angle)), Quaternion.identity);
+            c.SetEnnemy();
+            Ennemies.Add(c);
+        }
+        else if (r > 0.3f)
+        {
+            Archer c;
+            c = Instantiate((Archer)archer, new Vector3(radius * Mathf.Cos(angle), 1f, radius * Mathf.Sin(angle)), Quaternion.identity);
             c.SetEnnemy();
             Ennemies.Add(c);
         }
         else
         {
-            Archer c;
-            c = Instantiate((Archer)archer, new Vector3(radius * Mathf.Cos(angle), 0.1f, radius * Mathf.Sin(angle)), Quaternion.identity);
+            BomberMan c;
+            c = Instantiate((BomberMan)bomber, new Vector3(radius * Mathf.Cos(angle), 1f, radius * Mathf.Sin(angle)), Quaternion.identity);
             c.SetEnnemy();
             Ennemies.Add(c);
         }

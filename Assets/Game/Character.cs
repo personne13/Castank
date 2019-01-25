@@ -30,7 +30,6 @@ public class Character : MonoBehaviour {
 
     // Update is called once per frame
     protected void Update () {
-        
         if (life <= 0 || transform.position.y <-2) {
             //Debug.Log("dead");
             if (isEnnemy)
@@ -44,6 +43,12 @@ public class Character : MonoBehaviour {
             }
             Destroy(gameObject);
         }
+        /*
+        if (transform.position.y > 0.55f)
+        {
+            transform.position = new Vector3(transform.position.x, 0.55f, transform.position.z);
+        }
+        */
 	}
 
 
@@ -54,6 +59,7 @@ public class Character : MonoBehaviour {
     public void damage(int d, bool ennemyDamage) {
         if (ennemyDamage!=isEnnemy)
         {
+            Debug.Log(d);
             life -= d; ;
         }
         

@@ -565,6 +565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soldier: {fileID: 114195528151303628, guid: acc81b9f8f6f95147ae49006f91fa712, type: 2}
   archer: {fileID: 114829841330784498, guid: f13b147a8b0f6ec48ac520c99c691148, type: 2}
+  bomber: {fileID: 114491103257497888, guid: a483118566d2b69428b2d0fb19bcfe96, type: 2}
   waveNumberText: {fileID: 1216388704}
 --- !u!114 &534669907
 MonoBehaviour:
@@ -1391,8 +1392,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1746452710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.51, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -1425,6 +1426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soldier: {fileID: 114195528151303628, guid: acc81b9f8f6f95147ae49006f91fa712, type: 2}
   archer: {fileID: 114829841330784498, guid: f13b147a8b0f6ec48ac520c99c691148, type: 2}
+  bomber: {fileID: 114491103257497888, guid: a483118566d2b69428b2d0fb19bcfe96, type: 2}
   MoneyText: {fileID: 350264449}
   GameOverText: {fileID: 405418888}
 --- !u!1 &1804635755

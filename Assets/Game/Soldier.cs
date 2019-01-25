@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Soldier : Character {
-    public Weapon sword;
+    public Sword sword;
     private Rigidbody srb;
     private Weapon s;
     private int ressourceGain = 1;
