@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class AddElement : MonoBehaviour
 {
-    public TrapElement currentSelection;
+    public TrapElement[] availablePrefabs;
+    private TrapElement currentSelection;
+    private int indexCurrentSelection = 0;
     private TrapElement previewedObject;
+    private List<TrapElement> generatedTrap = new List<TrapElement>();
 
     private GameObject test;
 
@@ -14,7 +17,17 @@ public class AddElement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(availablePrefabs.Length <= 0)
+        {
+            Debug.Log("Error: no prefabs available");
+            return;
+        }
+
+        currentSelection = availablePrefabs[indexCurrentSelection];
         previewedObject = null;
+        TrapElement firstElement = Instantiate(currentSelection, new Vector3(0, 0, 0), Quaternion.identity);
+        SetObjectKinematic(firstElement, true);
+        generatedTrap.Add(firstElement);
     }
 
     // Update is called once per frame
@@ -40,14 +53,14 @@ public class AddElement : MonoBehaviour
                 }
 
                 Transform attachedElement = hit.collider.gameObject.transform.parent;
-                Transform plug = currentSelection.transform.GetChild(currentPlugIndex);
+                Transform plugPrefab = currentSelection.transform.GetChild(currentPlugIndex);
                 Transform plugged = hit.collider.transform;
-                Vector3 newElementPosition = plugged.position + plug.position;
-                Vector3 normalPlug = plug.forward;
+                Vector3 newElementPosition = plugged.position + plugPrefab.position;
+                Vector3 normalPlug = plugPrefab.forward;
                 Vector3 normalPlugged = plugged.forward;
 
                 previewedObject = Instantiate(currentSelection, newElementPosition, attachedElement.rotation);
-
+                
                 SetObjectKinematic(previewedObject, true);
 
                 Vector3 axisRotation = Vector3.Cross(normalPlug, normalPlugged);
@@ -55,11 +68,28 @@ public class AddElement : MonoBehaviour
                     axisRotation = Vector3.up;
 
                 previewedObject.transform.RotateAround(plugged.position, axisRotation, Vector3.Angle(normalPlug, normalPlugged));
+                Transform plug = previewedObject.transform.GetChild(currentPlugIndex);
+                FixedJoint newJoint = plug.gameObject.AddComponent<FixedJoint>();
+                newJoint.connectedBody = hit.collider.attachedRigidbody;
+
+                Debug.Log("Test");
+
                 return true;
             }
-            return true;
+            else
+            {
+                if (previewedObject != null)
+                    if (!previewedObject.CanInstantiate())
+                        return false;
+
+                if (hit.collider.gameObject.name == "Terrain")
+                    return false;
+
+                return true;
+            }
         }
         return false;
+
     }
 
     void ResetPreview()
@@ -81,6 +111,29 @@ public class AddElement : MonoBehaviour
         box.isTrigger = isKinematic;
     }
 
+    void EnableTrap(List<TrapElement> trap)
+    {
+        foreach (TrapElement e in trap)
+        {
+            SetObjectKinematic(e, false);
+        }
+    }
+
+    int GetNbPlugs(TrapElement trap)
+    {
+        int res = 0;
+        for(int i = 0; i < trap.transform.childCount; i++)
+        {
+            Transform child = trap.transform.GetChild(i);
+            if(child.tag == "plug")
+            {
+                res += 1;
+            }
+        }
+
+        return res;
+    }
+
     void EventHandler()
     {
         if(Input.GetButton("Fire1"))
@@ -89,10 +142,32 @@ public class AddElement : MonoBehaviour
             {
                 if (previewedObject.CanInstantiate())
                 {
+                    generatedTrap.Add(previewedObject);
                     previewedObject.instantiateTrap();
                     previewedObject = null;
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            EnableTrap(generatedTrap);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            ResetPreview();
+            indexCurrentSelection += 1;
+            currentPlugIndex = 0;
+            indexCurrentSelection = indexCurrentSelection % availablePrefabs.Length;
+            currentSelection = availablePrefabs[indexCurrentSelection];
+            Debug.Log("DEBUG");
+            Debug.Log(indexCurrentSelection);
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetPreview();
+            currentPlugIndex += 1;
+            currentPlugIndex = currentPlugIndex % GetNbPlugs(currentSelection);
         }
     }
 }
