@@ -5,6 +5,11 @@ using UnityEngine;
 public class Projectile : Weapon
 {
 
+    private void Awake()
+    {
+        damage = 50;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         Character c = collision.gameObject.GetComponent<Character>();

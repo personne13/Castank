@@ -8,9 +8,11 @@ public class Soldier : Character {
     private Weapon s;
     private int ressourceGain = 1;
 
+
     // Use this for initialization
     new void Awake () {
         base.Awake();
+        life = 1000;
         s = Instantiate(sword, transform.position + transform.forward, Quaternion.identity);
         srb = s.GetComponent<Rigidbody>();
         gameObject.AddComponent<FixedJoint>().connectedBody = srb;
@@ -30,41 +32,51 @@ public class Soldier : Character {
 
     private void FixedUpdate () {
         float step = speed * Time.fixedDeltaTime;
+        Character target = null;
         if (isEnnemy)
         {
-            Character target = Game.getClosestTroop(transform.position, 20);
-            if (target != null)
-            {
-                Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
-                transform.rotation = Quaternion.LookRotation(newDir);
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-            }
-            else
-            {
-                Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z) , -new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
-                transform.rotation = Quaternion.LookRotation(newDir);
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, 0), step);
-            }
+            target = Game.getClosestTroop(transform.position, 20);
         }
         else
         {
-            Character target = NextWave.getClosestEnnemy(transform.position, 30);
-            if (target != null)
+            target = NextWave.getClosestEnnemy(transform.position, 30);
+        }
+        if (target != null || isEnnemy)
+        {
+            Vector3 newDir;
+            float dist;
+            Vector3 targetPos;
+            if (target == null && isEnnemy)
             {
-                Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
-                transform.rotation = Quaternion.LookRotation(newDir);
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+                newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), -new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
+                dist = transform.position.magnitude;
+                targetPos = new Vector3(0, 0, 0);
             }
             else
             {
-                Vector3 pos = transform.position - spoonPosition;
-                if (pos.magnitude > 0.2)
-                {
-                    transform.position = Vector3.MoveTowards(transform.position, spoonPosition, step);
-                }
+                newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
+                targetPos = target.transform.position;
+                dist = (targetPos - transform.position).magnitude;
             }
-            
+            float dTheta = 0f;
+            if (dist < 5f)
+            {
+                dTheta = Random.Range(-20f, 20f);
+            }
+            transform.rotation = Quaternion.LookRotation(newDir) * Quaternion.Euler(0f, dTheta, 0f);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
+
         }
+        else
+        {
+            Vector3 pos = transform.position - spoonPosition;
+            if (pos.magnitude > 0.2)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, spoonPosition, step);
+            }
+        }
+            
+        
         if (rb.velocity.magnitude > speed)
         {
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed);

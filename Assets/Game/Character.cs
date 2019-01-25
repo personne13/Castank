@@ -8,6 +8,7 @@ public class Character : MonoBehaviour {
     protected float speed = 15.0f;
     protected bool isEnnemy = false;
     protected Vector3 spoonPosition;
+    protected static int cost;
 
     // Use this for initialization
     protected void Awake () {
@@ -56,6 +57,11 @@ public class Character : MonoBehaviour {
             life -= d; ;
         }
         
+    }
+
+    static public int Cost()
+    {
+        return cost;
     }
 
 }

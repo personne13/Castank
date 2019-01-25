@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NextWave : MonoBehaviour {
     public Character soldier;
@@ -16,14 +17,19 @@ public class NextWave : MonoBehaviour {
     private float dtmin = 1.0f;
     private float dtmax = 2.0f;
     static private List<Character> Ennemies = new List<Character>();
+    public Text waveNumberText;
 
     // Use this for initialization
     void Start () {
     }
-	
-	// Update is called once per frame
-	void Update () {
 
+    private void printWaveNumber()
+    {
+        waveNumberText.text = "WAVE : " + Mathf.Round(waveNum).ToString();
+    }
+    // Update is called once per frame
+    void Update () {
+        printWaveNumber();
         if (Input.GetKeyDown("d"))//FOR DEBUG
         {
             Soldier cc = Instantiate((Soldier)soldier, new Vector3(10, 0.55f, 10), Quaternion.identity);
@@ -77,7 +83,7 @@ public class NextWave : MonoBehaviour {
     {
         float angle = Random.Range(0.0f, 2*Mathf.PI);
         //TODO: Instantiate different kind of troops here
-        if (Random.Range(0.0f, 1.0f) > 0.5f)
+        if (Random.Range(0.0f, 1.0f) > 0f)
         {
             Soldier c;
             c = Instantiate((Soldier)soldier, new Vector3(radius*Mathf.Cos(angle), 0.1f, radius * Mathf.Sin(angle)), Quaternion.identity);

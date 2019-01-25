@@ -11,14 +11,13 @@ public class Archer : Character {
     private float deltaTimeShoot = 0.4f;
     private float timer = 0.0f;
     private bool isShooting = false;
-    private int turnDir = 0;
+
 
 
     // Use this for initialization
     new void Awake()
     {
-        //speed = 17.0f;
-        turnDir = Mathf.FloorToInt(Random.Range(0.0f, 0.3f) * 10) - 1;
+        life = 500;
         base.Awake();
     }
 
@@ -120,7 +119,6 @@ public class Archer : Character {
                 }
                 isShooting = true;
 
-                //transform.position = Vector3.MoveTowards(transform.position, turnDir * Vector3.Cross(target.transform.position.normalized, new Vector3(0, 1, 0)).normalized, step*10);
             }
             else
             {
@@ -129,7 +127,6 @@ public class Archer : Character {
         }
         else
         {
-            //if (isEnnemy && transform.)
             Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), -new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
             transform.rotation = Quaternion.LookRotation(newDir);
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, 0), step);
