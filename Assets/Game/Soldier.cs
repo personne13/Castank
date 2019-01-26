@@ -70,10 +70,10 @@ public class Soldier : Character {
         }
         else
         {
-            Vector3 pos = transform.position - spoonPosition;
+            Vector3 pos = transform.position - spawnPosition;
             if (pos.magnitude > 0.2)
             {
-                transform.position = Vector3.MoveTowards(transform.position, spoonPosition, step);
+                transform.position = Vector3.MoveTowards(transform.position, spawnPosition, step);
             }
         }
             

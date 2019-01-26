@@ -7,13 +7,13 @@ public class Character : MonoBehaviour {
     protected int life = 100;
     protected float speed = 15.0f;
     protected bool isEnnemy = false;
-    protected Vector3 spoonPosition;
+    protected Vector3 spawnPosition;
     protected static int cost;
 
     // Use this for initialization
     protected void Awake () {
         rb = gameObject.GetComponent<Rigidbody>();
-        spoonPosition = transform.position;
+        spawnPosition = transform.position;
 
     }
 
@@ -59,7 +59,6 @@ public class Character : MonoBehaviour {
     public void damage(int d, bool ennemyDamage) {
         if (ennemyDamage!=isEnnemy)
         {
-            Debug.Log(d);
             life -= d; ;
         }
         
