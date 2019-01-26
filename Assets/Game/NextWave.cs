@@ -20,7 +20,7 @@ public class NextWave : MonoBehaviour {
     enum Units { Soldier, Archer, Bomber};
     int[] Values = { 1, 2, 3};
     float timer = 0;
-    int spawnRadius = 40;
+    int spawnRadius = 80;
     int kindApparitionStep = 3;
     //int levelAugmentationStep = 8;
 

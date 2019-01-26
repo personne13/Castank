@@ -14,7 +14,7 @@ public class Soldier : Character {
         base.Awake();
         life = 1000;
         speed = 15f;
-        s = Instantiate(sword, transform.position + transform.forward, Quaternion.identity);
+        s = Instantiate(sword, transform.position + transform.forward*0.5f, Quaternion.identity);
         srb = s.GetComponent<Rigidbody>();
         gameObject.AddComponent<FixedJoint>().connectedBody = srb;
     }
