@@ -13,6 +13,7 @@ public class Soldier : Character {
     new void Awake () {
         base.Awake();
         life = 1000;
+        speed = 15f;
         s = Instantiate(sword, transform.position + transform.forward, Quaternion.identity);
         srb = s.GetComponent<Rigidbody>();
         gameObject.AddComponent<FixedJoint>().connectedBody = srb;

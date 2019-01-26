@@ -9,7 +9,7 @@ public class BomberMan : Character
     private int ressourceGain = 2;
     //new private int life = 200;
     private int scope = 15;
-    private float deltaTimeShoot = 1.5f;
+    private float deltaTimeShoot = 2f;
     private float timer = 0.0f;
     private bool isShooting = false;
 
@@ -18,8 +18,9 @@ public class BomberMan : Character
     // Use this for initialization
     new void Awake()
     {
-        life = 500;
         base.Awake();
+        life = 500;
+        speed = 6f;
     }
 
     // Update is called once per frame

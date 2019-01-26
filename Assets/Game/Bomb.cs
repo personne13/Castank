@@ -12,7 +12,7 @@ public class Bomb : Weapon
     private void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
-        damage = 200;
+        damage = 100;
     }
 
     new private void OnCollisionEnter(Collision collision)

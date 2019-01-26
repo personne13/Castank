@@ -17,8 +17,9 @@ public class Archer : Character {
     // Use this for initialization
     new void Awake()
     {
-        life = 500;
         base.Awake();
+        life = 500;
+        speed = 8f;
     }
 
     // Update is called once per frame

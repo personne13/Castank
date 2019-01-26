@@ -58,7 +58,7 @@ public class Game : MonoBehaviour {
     {
         if (ennemyDamage) {
             CastleLife -= d;
-            Debug.Log(string.Concat("Castle life : ", CastleLife.ToString()));
+            //Debug.Log(string.Concat("Castle life : ", CastleLife.ToString()));
         }
     }
 
