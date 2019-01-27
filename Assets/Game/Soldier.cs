@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Soldier : Character {
-    public Weapon sword;
+    public Sword sword;
     private Rigidbody srb;
     private Weapon s;
     private int ressourceGain = 1;
@@ -14,7 +14,8 @@ public class Soldier : Character {
     // Use this for initialization
     new void Awake () {
         life = 1000;
-        s = Instantiate(sword, transform.position + transform.forward, Quaternion.identity);
+        speed = 15f;
+        s = Instantiate(sword, transform.position + transform.forward*0.5f, Quaternion.identity);
         srb = s.GetComponent<Rigidbody>();
         gameObject.AddComponent<FixedJoint>().connectedBody = srb;
         base.Awake();
@@ -78,10 +79,10 @@ public class Soldier : Character {
         }
         else
         {
-            Vector3 pos = transform.position - spoonPosition;
+            Vector3 pos = transform.position - spawnPosition;
             if (pos.magnitude > 0.2)
             {
-                transform.position = Vector3.MoveTowards(transform.position, spoonPosition, step);
+                transform.position = Vector3.MoveTowards(transform.position, spawnPosition, step);
             }
         }
             

@@ -4,23 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class NextWave : MonoBehaviour {
-    public Character soldier;
-    public Character archer;
     private int waveNum = 0;
-    private int nbUnits = 10;
-    private int nbUnitsSent = 0;
+    private int targetDifficulty = 0;
+    private int reachedDifficulty = 0;
     private bool active = false;
     private bool isParam = false;
-    private float timer = 0;
-    private float[] waitTime = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
-    private int radius = 30;
-    private float dtmin = 1.0f;
-    private float dtmax = 2.0f;
     static private List<Character> Ennemies = new List<Character>();
+
     public Text waveNumberText;
 
-    // Use this for initialization
-    void Start () {
+    public Character soldier;
+    public Character archer;
+    public Character bomber;
+    int nbUnitKind = 3;
+    enum Units { Soldier, Archer, Bomber};
+    int[] Values = { 1, 2, 3};
+    float timer = 0;
+    int spawnRadius = 80;
+    int kindApparitionStep = 3;
+    //int levelAugmentationStep = 8;
+
+
+// Use this for initialization
+void Start () {
     }
 
     private void printWaveNumber()
@@ -38,27 +44,25 @@ public class NextWave : MonoBehaviour {
 
         }
 
-        if (active && nbUnitsSent == nbUnits)
+        if (active && reachedDifficulty >= targetDifficulty)
         {
             active = false;
             isParam = false;
             Debug.Log("Wave " + waveNum.ToString() + " is finished");
         }
-        else if (active && nbUnitsSent != nbUnits)
+        else if (active && reachedDifficulty < targetDifficulty)
         {
             timer += Time.deltaTime;
-            if (timer > waitTime[nbUnitsSent])
-            {
-                Spoon();
-            }
+            Spawn();
         }
         else if (!active && !isParam)
         {
             ParamWave();
         }
-        if (Input.GetKeyDown("r") && !active)
+        if (Input.GetKeyDown("r") && !active && isParam)
         {
             active = true;
+            timer = 0;
         }
 
     }
@@ -67,38 +71,60 @@ public class NextWave : MonoBehaviour {
     {
         waveNum++;
         Debug.Log("Press r to run wave " + waveNum.ToString());
-        //TODO improve the wave generation
-        nbUnits = nbUnits*2;
-        waitTime = new float[nbUnits];
-        for (int k = 0; k < nbUnits; k++)
-        {
-            waitTime[k] = Random.Range(dtmin, dtmax);
-        }
+        targetDifficulty += 10;
+        reachedDifficulty = 0;
         isParam = true;
-        timer = 0;
     }
 
 
-    void Spoon()
+    void Spawn()
     {
-        float angle = Random.Range(0.0f, 2*Mathf.PI);
-        //TODO: Instantiate different kind of troops here
-        if (Random.Range(0.0f, 1.0f) > 0f)
+        if (timer > 3)
         {
-            Soldier c;
-            c = Instantiate((Soldier)soldier, new Vector3(radius*Mathf.Cos(angle), 0.1f, radius * Mathf.Sin(angle)), Quaternion.identity);
-            c.SetEnnemy();
-            Ennemies.Add(c);
+            int packetDifficulty = Mathf.Min(targetDifficulty / 10, targetDifficulty - reachedDifficulty);
+            List<int> Packet = new List<int>();
+            int diff = 0;
+            while (diff != packetDifficulty)
+            {
+                int u = Random.Range(0, Mathf.Min(waveNum/kindApparitionStep, nbUnitKind - 1) + 1);
+                int maxValue = packetDifficulty - diff;
+                if (u < nbUnitKind && Values[u] <= maxValue)
+                {
+                    diff += Values[u];
+                    Packet.Add(u);
+                } 
+            }
+            float angle = Random.Range(0.0f, 2 * Mathf.PI);
+            Vector3 spawnCenter = new Vector3(spawnRadius * Mathf.Cos(angle), 0f, spawnRadius * Mathf.Sin(angle));
+            foreach (int index in Packet)
+            {
+                angle = Random.Range(0.0f, 2 * Mathf.PI);
+                int radius = Random.Range(2, 10);
+                if (index == 0)
+                {
+                    Soldier c;
+                    c = Instantiate((Soldier)soldier, spawnCenter + new Vector3(radius * Mathf.Cos(angle), 1f, radius * Mathf.Sin(angle)), Quaternion.identity);
+                    c.SetEnnemy();
+                    Ennemies.Add(c);
+                }
+                else if (index == 1)
+                {
+                    Archer c;
+                    c = Instantiate((Archer)archer, spawnCenter + new Vector3(radius * Mathf.Cos(angle), 1f, radius * Mathf.Sin(angle)), Quaternion.identity);
+                    c.SetEnnemy();
+                    Ennemies.Add(c);
+                }
+                else if (index == 2)
+                {
+                    BomberMan c;
+                    c = Instantiate((BomberMan)bomber, spawnCenter + new Vector3(radius * Mathf.Cos(angle), 1f, radius * Mathf.Sin(angle)), Quaternion.identity);
+                    c.SetEnnemy();
+                    Ennemies.Add(c);
+                }
+            }
+            timer = 0;
+            reachedDifficulty += packetDifficulty;
         }
-        else
-        {
-            Archer c;
-            c = Instantiate((Archer)archer, new Vector3(radius * Mathf.Cos(angle), 0.1f, radius * Mathf.Sin(angle)), Quaternion.identity);
-            c.SetEnnemy();
-            Ennemies.Add(c);
-        }
-        nbUnitsSent++;
-        timer = 0;
     }
 
 

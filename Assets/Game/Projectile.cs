@@ -10,19 +10,9 @@ public class Projectile : Weapon
         damage = 50;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    new private void OnCollisionEnter(Collision collision)
     {
-        Character c = collision.gameObject.GetComponent<Character>();
-        if (c != null)
-        {
-            c.damage(damage, isEnnemy);
-        }
-        Game g = collision.gameObject.GetComponent<Game>();
-        if (g != null)
-        {
-            g.damage(damage, isEnnemy);
-        }
-        
+        base.OnCollisionEnter(collision);
         Destroy(gameObject);
 
     }

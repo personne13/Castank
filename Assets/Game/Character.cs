@@ -8,15 +8,15 @@ public class Character : MonoBehaviour {
     protected int life;
     protected float speed = 15.0f;
     protected bool isEnnemy = false;
-    protected Vector3 spoonPosition;
+    protected Vector3 spawnPosition;
     protected static int cost;
 
-    protected int startLife; 
+    protected int startLife;
 
     // Use this for initialization
     protected void Awake () {
         rb = gameObject.GetComponent<Rigidbody>();
-        spoonPosition = transform.position;
+        spawnPosition = transform.position;
         startLife = life;
     }
 
@@ -33,7 +33,6 @@ public class Character : MonoBehaviour {
 
     // Update is called once per frame
     protected void Update () {
-
         if (life <= 0 || transform.position.y <-2) {
             //Debug.Log("dead");
             if (isEnnemy)
@@ -47,11 +46,17 @@ public class Character : MonoBehaviour {
             }
             Destroy(gameObject);
         }
+        /*
+        if (transform.position.y > 0.55f)
+        {
+            transform.position = new Vector3(transform.position.x, 0.55f, transform.position.z);
+        }
+        */
 	}
 
 
 
-    
+
 
 
     public void damage(int d, bool ennemyDamage) {
@@ -59,7 +64,7 @@ public class Character : MonoBehaviour {
         {
             life -= d; ;
         }
-        
+
     }
 
     static public int Cost()

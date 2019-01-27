@@ -1,19 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Archer : Character {
+public class BomberMan : Character
+{
 
-    public Weapon projectile;
+    public Weapon bomb;
     private int ressourceGain = 2;
     //new private int life = 200;
     private int scope = 15;
-    private float deltaTimeShoot = 0.4f;
+    private float deltaTimeShoot = 2f;
     private float timer = 0.0f;
     private bool isShooting = false;
 
-    public Image healthBar;
 
 
     // Use this for initialization
@@ -21,19 +20,12 @@ public class Archer : Character {
     {
         base.Awake();
         life = 500;
-        speed = 8f;
-    }
-
-    private void SetHealthBar()
-    {
-        healthBar.fillAmount = (float)life / (float)startLife;
+        speed = 6f;
     }
 
     // Update is called once per frame
     new private void Update()
     {
-        SetHealthBar();
-
         if (life <= 0)
         {
             Game.addRessources(ressourceGain);
@@ -51,7 +43,7 @@ public class Archer : Character {
             archerBehaviour(target, step);
             if (target == null)
             {
-                if (transform.position.magnitude > scope/2.0f)
+                if (transform.position.magnitude > scope / 2.0f)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, 0), step);
                 }
@@ -89,7 +81,7 @@ public class Archer : Character {
     private void archerBehaviour(Character target, float step)
     {
         Vector3 targetPos = new Vector3(0, 0, 0);
-        if (target!= null)
+        if (target != null)
         {
             targetPos = target.transform.position;
         }
@@ -99,7 +91,7 @@ public class Archer : Character {
             Vector3 newDir = Vector3.RotateTowards(new Vector3(transform.forward.x, 0, transform.forward.z), new Vector3(targetPos.x, 0, targetPos.z) - new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 0.1f);
             transform.rotation = Quaternion.LookRotation(newDir);
             Vector3 v = targetPos - transform.position;
-            if (v.magnitude > scope*0.9f)
+            if (v.magnitude > scope * 0.9f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
             }
@@ -119,7 +111,7 @@ public class Archer : Character {
                 }
                 if (timer > deltaTimeShoot)
                 {
-                    Projectile p = Instantiate((Projectile)projectile, transform.position + transform.forward + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                    Bomb p = Instantiate((Bomb)bomb, transform.position + transform.forward + new Vector3(0, 0.5f, 0), Quaternion.identity);
                     if (isEnnemy)
                     {
                         p.SetEnnemy();
