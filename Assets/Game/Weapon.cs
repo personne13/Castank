@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour{
-    protected int damage = 0;
+    protected int damage;
     protected bool isEnnemy = false;
 
 
 
-    public void SetEnnemy() {
+    public virtual void SetEnnemy() {
         isEnnemy = true;
+    }
+
+    public int damageValue()
+    {
+        return damage;
     }
 
     protected void OnCollisionEnter(Collision collision)

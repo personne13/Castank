@@ -10,6 +10,7 @@ public class Character : MonoBehaviour {
     protected bool isEnnemy = false;
     protected Vector3 spawnPosition;
     protected static int cost;
+    protected int ressourceGain;
 
     protected int startLife;
 

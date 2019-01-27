@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6367bcd07e0d124e9f38a6c511dd955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sword: {fileID: 114980928929836302, guid: 6e926d4c1d667aa44ac34694446f50da, type: 2}
+  sword: {fileID: 114322890697984666, guid: 6e926d4c1d667aa44ac34694446f50da, type: 2}
   healthBar: {fileID: 114674037614553194}
 --- !u!114 &114420886957603252
 MonoBehaviour:
