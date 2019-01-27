@@ -55,24 +55,38 @@ public class AddElement : MonoBehaviour
                 Transform attachedElement = hit.collider.gameObject.transform.parent;
                 Transform plugPrefab = currentSelection.transform.GetChild(currentPlugIndex);
                 Transform plugged = hit.collider.transform;
-                Vector3 newElementPosition = plugged.position + plugPrefab.position;
+                Vector3 newElementPosition = plugged.position - plugPrefab.position;
                 Vector3 normalPlug = plugPrefab.forward;
                 Vector3 normalPlugged = plugged.forward;
 
-                previewedObject = Instantiate(currentSelection, newElementPosition, attachedElement.rotation);
-                
-                SetObjectKinematic(previewedObject, true);
-
                 Vector3 axisRotation = Vector3.Cross(normalPlug, normalPlugged);
-                if (Vector3.Cross(normalPlug, normalPlugged) == Vector3.zero)//if the forward vectors are in the same direction, any axis is valid
-                    axisRotation = Vector3.up;
+                if (Vector3.Cross(normalPlug, normalPlugged) == Vector3.zero)//if the forward vectors are in the same direction, any orthogonal axis is valid
+                {
+                    /*if(normalPlug != Vector3.up && normalPlug != -Vector3.up)
+                        axisRotation = -Vector3.up;
+                    else
+                        axisRotation = -Vector3.left;*/
+                    
+                    if(normalPlug.x != 0)
+                    {
+                        axisRotation = new Vector3(normalPlug.z / normalPlug.x, 0, 1);
+                    }
+                    else if (normalPlug.y != 0)
+                    {
+                        axisRotation = new Vector3(0, normalPlug.z / normalPlug.y, 1);
+                    }
+                    else//normalPlug.z has to be != 0
+                    {
+                        axisRotation = new Vector3(0, 1, normalPlug.y / normalPlug.z);
+                    }
+                }
 
-                previewedObject.transform.RotateAround(plugged.position, axisRotation, Vector3.Angle(normalPlug, normalPlugged));
+                previewedObject = Instantiate(currentSelection, newElementPosition, Quaternion.identity);
+                SetObjectKinematic(previewedObject, true);
+                previewedObject.transform.RotateAround(plugged.position, axisRotation, -Vector3.Angle(-normalPlugged, normalPlug));
                 Transform plug = previewedObject.transform.GetChild(currentPlugIndex);
                 FixedJoint newJoint = plug.gameObject.AddComponent<FixedJoint>();
                 newJoint.connectedBody = hit.collider.attachedRigidbody;
-
-                Debug.Log("Test");
 
                 return true;
             }
@@ -125,7 +139,7 @@ public class AddElement : MonoBehaviour
         for(int i = 0; i < trap.transform.childCount; i++)
         {
             Transform child = trap.transform.GetChild(i);
-            if(child.tag == "plug")
+            if(child.tag == "Plug")
             {
                 res += 1;
             }
@@ -153,15 +167,13 @@ public class AddElement : MonoBehaviour
         {
             EnableTrap(generatedTrap);
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.B))
         {
             ResetPreview();
             indexCurrentSelection += 1;
             currentPlugIndex = 0;
             indexCurrentSelection = indexCurrentSelection % availablePrefabs.Length;
             currentSelection = availablePrefabs[indexCurrentSelection];
-            Debug.Log("DEBUG");
-            Debug.Log(indexCurrentSelection);
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
