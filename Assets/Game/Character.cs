@@ -1,20 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour {
     protected Rigidbody rb;
-    protected int life = 100;
+    protected int life;
     protected float speed = 15.0f;
     protected bool isEnnemy = false;
     protected Vector3 spoonPosition;
     protected static int cost;
 
+    protected int startLife; 
+
     // Use this for initialization
     protected void Awake () {
         rb = gameObject.GetComponent<Rigidbody>();
         spoonPosition = transform.position;
-
+        startLife = life;
     }
 
     public virtual void SetEnnemy()
@@ -30,7 +33,7 @@ public class Character : MonoBehaviour {
 
     // Update is called once per frame
     protected void Update () {
-        
+
         if (life <= 0 || transform.position.y <-2) {
             //Debug.Log("dead");
             if (isEnnemy)

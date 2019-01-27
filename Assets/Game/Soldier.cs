@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Soldier : Character {
     public Weapon sword;
@@ -8,19 +9,27 @@ public class Soldier : Character {
     private Weapon s;
     private int ressourceGain = 1;
 
+    public Image healthBar;
 
     // Use this for initialization
     new void Awake () {
-        base.Awake();
         life = 1000;
         s = Instantiate(sword, transform.position + transform.forward, Quaternion.identity);
         srb = s.GetComponent<Rigidbody>();
         gameObject.AddComponent<FixedJoint>().connectedBody = srb;
+        base.Awake();
+    }
+
+    private void SetHealthBar()
+    {
+        healthBar.fillAmount = (float)life / (float)startLife;
     }
 
     // Update is called once per frame
     new private void Update()
     {
+        SetHealthBar();
+
         if (life <= 0)
         {
             Game.addRessources(ressourceGain);

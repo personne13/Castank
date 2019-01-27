@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -563,8 +563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5804edd77f87647838a4d01847bb1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soldier: {fileID: 114195528151303628, guid: acc81b9f8f6f95147ae49006f91fa712, type: 2}
-  archer: {fileID: 114829841330784498, guid: f13b147a8b0f6ec48ac520c99c691148, type: 2}
+  soldier: {fileID: 114296030764434288, guid: c055a794aa1cb49428edc33ac53c277c, type: 2}
+  archer: {fileID: 114652193141358310, guid: 05b23410ea3337846ac95dbe04842c82, type: 2}
   waveNumberText: {fileID: 1216388704}
 --- !u!114 &534669907
 MonoBehaviour:
@@ -1150,9 +1150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd60dffff19ee314d833fdf05905fbc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoldierPrefab: {fileID: 114195528151303628, guid: acc81b9f8f6f95147ae49006f91fa712,
+  SoldierPrefab: {fileID: 114296030764434288, guid: c055a794aa1cb49428edc33ac53c277c,
     type: 2}
-  ArcherPrefab: {fileID: 114829841330784498, guid: f13b147a8b0f6ec48ac520c99c691148,
+  ArcherPrefab: {fileID: 114652193141358310, guid: 05b23410ea3337846ac95dbe04842c82,
     type: 2}
 --- !u!1 &1376273951
 GameObject:
@@ -1423,8 +1423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88a820f001aa244d9459d13eb0a68a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soldier: {fileID: 114195528151303628, guid: acc81b9f8f6f95147ae49006f91fa712, type: 2}
-  archer: {fileID: 114829841330784498, guid: f13b147a8b0f6ec48ac520c99c691148, type: 2}
+  soldier: {fileID: 114296030764434288, guid: c055a794aa1cb49428edc33ac53c277c, type: 2}
+  archer: {fileID: 114652193141358310, guid: 05b23410ea3337846ac95dbe04842c82, type: 2}
   MoneyText: {fileID: 350264449}
   GameOverText: {fileID: 405418888}
 --- !u!1 &1804635755

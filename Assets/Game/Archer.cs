@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Archer : Character {
 
@@ -12,18 +13,27 @@ public class Archer : Character {
     private float timer = 0.0f;
     private bool isShooting = false;
 
+    public Image healthBar;
 
 
     // Use this for initialization
     new void Awake()
     {
         life = 500;
+        speed = 3;
         base.Awake();
+    }
+
+    private void SetHealthBar()
+    {
+        healthBar.fillAmount = (float)life / (float)startLife;
     }
 
     // Update is called once per frame
     new private void Update()
     {
+        SetHealthBar();
+
         if (life <= 0)
         {
             Game.addRessources(ressourceGain);
