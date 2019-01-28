@@ -12,6 +12,9 @@ public class BomberMan : Character
     private float timer = 0.0f;
     private bool isShooting = false;
 
+    public static int unitLife = 500;
+    private int ennemyLife = 500;
+
 
 
     // Use this for initialization
@@ -79,7 +82,10 @@ public class BomberMan : Character
     {
         GetComponent<Renderer>().material.color = Color.red;
         isEnnemy = true;
+        life = ennemyLife;
+        startLife = life;
     }
+
 
     private void archerBehaviour(Character target, float step)
     {

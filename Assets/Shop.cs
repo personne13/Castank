@@ -7,20 +7,31 @@ public class Shop : MonoBehaviour {
 
     public Soldier SoldierPrefab;
     public Archer ArcherPrefab;
+    public BomberMan BomberPrefab;
 
     private int soldierCost = 10;
     private int soldierUpgradeLifeCost = 50;
     private int soldierUpgradeDamageCost = 100;
+
     private int archerCost = 20;
     private int archerUpgradeLifeCost = 90;
     private int archerUpgradeDamageCost = 70;
 
+    private int bomberCost = 20;
+    private int bomberUpgradeLifeCost = 90;
+    private int bomberUpgradeDamageCost = 70;
+
     public Text soldierCostText;
     public Text soldierUpgradeLifeCostText;
     public Text soldierUpgradeDamageCostText;
+
     public Text archerCostText;
     public Text archerUpgradeLifeCostText;
     public Text archerUpgradeDamageCostText;
+
+    public Text bomberCostText;
+    public Text bomberUpgradeLifeCostText;
+    public Text bomberUpgradeDamageCostText;
 
 
     private Character ItemToBuild;
@@ -33,6 +44,9 @@ public class Shop : MonoBehaviour {
         archerCostText.text = "$" + Mathf.Round(archerCost).ToString();
         archerUpgradeLifeCostText.text = "Life up $" + Mathf.Round(archerUpgradeLifeCost).ToString();
         archerUpgradeDamageCostText.text = "Dmg up $" + Mathf.Round(archerUpgradeDamageCost).ToString();
+        bomberCostText.text = "$" + Mathf.Round(bomberCost).ToString();
+        bomberUpgradeLifeCostText.text = "Life up $" + Mathf.Round(bomberUpgradeLifeCost).ToString();
+        bomberUpgradeDamageCostText.text = "Dmg up $" + Mathf.Round(bomberUpgradeDamageCost).ToString();
     }
 
     void Start()
@@ -54,14 +68,17 @@ public class Shop : MonoBehaviour {
 
     public void PurchaseSoldier()
     {
-        Debug.Log("Soldier purchased");
         buildUnit(SoldierPrefab, soldierCost);
     }
 
     public void PurchaseArcher()
     {
-        Debug.Log("Archer purchased");
         buildUnit(ArcherPrefab, archerCost);
+    }
+
+    public void PurchaseBomber()
+    {
+        buildUnit(BomberPrefab, archerCost);
     }
 
     public void UpgradeSoldierLife()
@@ -100,6 +117,23 @@ public class Shop : MonoBehaviour {
         }
     }
 
+    public void UpgradeBomberLife()
+    {
+        if (Game.Ressource() >= bomberUpgradeLifeCost)
+        {
+            BomberMan.unitLife += 200;
+            Game.removeRessources(bomberUpgradeLifeCost);
+        }
+    }
+
+    public void UpgradeBomberDamage()
+    {
+        if (Game.Ressource() >= bomberUpgradeDamageCost)
+        {
+            Bomb.unitDamage += 200;
+            Game.removeRessources(bomberUpgradeDamageCost);
+        }
+    }
 
     public Character GetItemToBuild()
     {
