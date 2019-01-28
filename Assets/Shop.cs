@@ -34,7 +34,7 @@ public class Shop : MonoBehaviour {
     public Text bomberUpgradeDamageCostText;
 
 
-    private Character ItemToBuild;
+    //private Character ItemToBuild;
 
     private void setShopText()
     {
@@ -135,9 +135,11 @@ public class Shop : MonoBehaviour {
         }
     }
 
+    /*
     public Character GetItemToBuild()
     {
         return ItemToBuild;
     }
+    */
     
 }
