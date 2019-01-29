@@ -9,6 +9,10 @@ public class Shop : MonoBehaviour {
     public Archer ArcherPrefab;
     public BomberMan BomberPrefab;
 
+    public GameObject shopMenu;
+
+    public static bool itemCanBeInstantiate = false;
+
     private int soldierCost = 10;
     private int soldierUpgradeLifeCost = 50;
     private int soldierUpgradeDamageCost = 100;
@@ -34,7 +38,7 @@ public class Shop : MonoBehaviour {
     public Text bomberUpgradeDamageCostText;
 
 
-    //private Character ItemToBuild;
+    public static Character ItemToBuild;
 
     private void setShopText()
     {
@@ -58,9 +62,12 @@ public class Shop : MonoBehaviour {
     {
         if (Game.Ressource() >= cost)
         {
-            Character c = Instantiate(item, new Vector3(-6, 0.1f, 6), Quaternion.identity);
-            Game.addTroop(c);
+            //Character c = Instantiate(item, new Vector3(-6, 0.1f, 6), Quaternion.identity);
+            //Game.addTroop(c);
             Game.removeRessources(cost);
+            SetItemToBuild(item);
+            itemCanBeInstantiate = true;
+            shopMenu.SetActive(!shopMenu.activeSelf);
         }
     }
 
@@ -133,11 +140,14 @@ public class Shop : MonoBehaviour {
         }
     }
 
-    /*
-    public Character GetItemToBuild()
+    public static Character GetItemToBuild()
     {
         return ItemToBuild;
     }
-    */
+
+    private void SetItemToBuild(Character item)
+    {
+        ItemToBuild = item;
+    }
     
 }
