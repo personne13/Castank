@@ -8,6 +8,8 @@ public class UnitBuilder : MonoBehaviour
 
     public GameObject shopMenu;
 
+    private int castDistance = 75;
+
     private void OnMouseDown()
     {
         if (Shop.itemCanBeInstantiate)
@@ -18,9 +20,13 @@ public class UnitBuilder : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 clickPosition = hit.point;
+                if (clickPosition.magnitude >= castDistance)
+                {
+                    return;
+                }
                 Debug.Log(clickPosition);
+                buildUnit(Shop.GetItemToBuild());
             }
-            buildUnit(Shop.GetItemToBuild());
         }
     }
 
