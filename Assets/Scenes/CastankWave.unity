@@ -519,7 +519,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1371541621}
+      - m_Target: {fileID: 0}
         m_MethodName: UpgradeArcherDamage
         m_Mode: 1
         m_Arguments:
@@ -812,7 +812,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1371541621}
+      - m_Target: {fileID: 0}
         m_MethodName: UpgradeSoldierLife
         m_Mode: 1
         m_Arguments:
@@ -1722,7 +1722,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1371541621}
+      - m_Target: {fileID: 0}
         m_MethodName: UpgradeArcherLife
         m_Mode: 1
         m_Arguments:
@@ -2010,7 +2010,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1371541621}
+      - m_Target: {fileID: 0}
         m_MethodName: UpgradeArcherDamage
         m_Mode: 1
         m_Arguments:
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1371541621}
+      - m_Target: {fileID: 0}
         m_MethodName: UpgradeArcherLife
         m_Mode: 1
         m_Arguments:
@@ -3043,9 +3043,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1371541616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd60dffff19ee314d833fdf05905fbc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e5feb24bd61e254dacae811a704e8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoldierPrefab: {fileID: 114296030764434288, guid: c055a794aa1cb49428edc33ac53c277c,
+    type: 2}
+  ArcherPrefab: {fileID: 114652193141358310, guid: 05b23410ea3337846ac95dbe04842c82,
+    type: 2}
+  BomberPrefab: {fileID: 114491103257497888, guid: a483118566d2b69428b2d0fb19bcfe96,
+    type: 2}
+  soldierCostText: {fileID: 937464922}
+  soldierUpgradeLifeCostText: {fileID: 1847343251}
+  soldierUpgradeDamageCostText: {fileID: 17448955}
+  archerCostText: {fileID: 1530633731}
+  archerUpgradeLifeCostText: {fileID: 16884524}
+  archerUpgradeDamageCostText: {fileID: 1024322418}
+  bomberCostText: {fileID: 1791259619}
+  bomberUpgradeLifeCostText: {fileID: 195059896}
+  bomberUpgradeDamageCostText: {fileID: 2027247780}
 --- !u!1 &1376273951
 GameObject:
   m_ObjectHideFlags: 0
@@ -4247,7 +4262,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1371541621}
+      - m_Target: {fileID: 0}
         m_MethodName: UpgradeSoldierDamage
         m_Mode: 1
         m_Arguments:
