@@ -54,8 +54,6 @@ public class Shop : MonoBehaviour {
         setShopText();
     }
 
-  
-
     void buildUnit(Character item, int cost)
     {
         if (Game.Ressource() >= cost)
