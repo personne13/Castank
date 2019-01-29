@@ -6,12 +6,14 @@ public class BomberMan : Character
 {
 
     public Weapon bomb;
-    private int ressourceGain = 2;
     //new private int life = 200;
     private int scope = 15;
     private float deltaTimeShoot = 2f;
     private float timer = 0.0f;
     private bool isShooting = false;
+
+    public static int unitLife = 500;
+    private int ennemyLife = 500;
 
 
 
@@ -21,6 +23,7 @@ public class BomberMan : Character
         base.Awake();
         life = 500;
         speed = 6f;
+        ressourceGain = 2;
     }
 
     // Update is called once per frame
@@ -28,7 +31,10 @@ public class BomberMan : Character
     {
         if (life <= 0)
         {
-            Game.addRessources(ressourceGain);
+            if (isEnnemy)
+            {
+                Game.addRessources(ressourceGain);
+            }
         }
         base.Update();
     }
@@ -76,7 +82,10 @@ public class BomberMan : Character
     {
         GetComponent<Renderer>().material.color = Color.red;
         isEnnemy = true;
+        life = ennemyLife;
+        startLife = life;
     }
+
 
     private void archerBehaviour(Character target, float step)
     {

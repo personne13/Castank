@@ -1,31 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Soldier : Character {
     public Sword sword;
     private Rigidbody srb;
-    private Weapon s;
-    private int ressourceGain = 1;
-
+    //private Weapon s;
+    public static int unitLife = 1000;
+    private int ennemyLife = 1000;
+    public Image healthBar;
 
     // Use this for initialization
     new void Awake () {
-        base.Awake();
-        life = 1000;
+        life = unitLife;
         speed = 15f;
-        s = Instantiate(sword, transform.position + transform.forward*0.5f, Quaternion.identity);
-        srb = s.GetComponent<Rigidbody>();
+        sword = Instantiate(sword, transform.position + transform.forward*0.5f, Quaternion.identity);
+        srb = sword.GetComponent<Rigidbody>();
         gameObject.AddComponent<FixedJoint>().connectedBody = srb;
+        ressourceGain = 1;
+        base.Awake();
+    }
+
+    private void SetHealthBar()
+    {
+        healthBar.fillAmount = (float)life / (float)startLife;
     }
 
     // Update is called once per frame
     new private void Update()
     {
+        SetHealthBar();
+
         if (life <= 0)
         {
-            Game.addRessources(ressourceGain);
-            Destroy(s.gameObject);
+            if (isEnnemy)
+            {
+                Game.addRessources(ressourceGain);
+            }
+            Destroy(sword.gameObject);
         }
         base.Update();
     }
@@ -90,9 +103,11 @@ public class Soldier : Character {
     public new void SetEnnemy()
     {
         base.SetEnnemy();
-        if (s != null)
+        life = ennemyLife;
+        startLife = life;
+        if (sword != null)
         {
-            s.SetEnnemy();
+            sword.SetEnnemy();
         }
     }
 

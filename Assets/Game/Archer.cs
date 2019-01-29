@@ -1,33 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Archer : Character {
 
     public Weapon projectile;
-    private int ressourceGain = 2;
     //new private int life = 200;
     private int scope = 15;
     private float deltaTimeShoot = 0.4f;
     private float timer = 0.0f;
     private bool isShooting = false;
 
+    public static int unitLife = 500;
+    private int ennemyLife = 500;
+
+    public Image healthBar;
 
 
     // Use this for initialization
     new void Awake()
     {
-        base.Awake();
         life = 500;
+        base.Awake();
         speed = 8f;
+        ressourceGain = 2;
+    }
+
+    private void SetHealthBar()
+    {
+        healthBar.fillAmount = (float)life / (float)startLife;
     }
 
     // Update is called once per frame
     new private void Update()
     {
+        SetHealthBar();
+
         if (life <= 0)
         {
-            Game.addRessources(ressourceGain);
+            if (isEnnemy)
+            {
+                Game.addRessources(ressourceGain);
+            }
         }
         base.Update();
     }
@@ -75,6 +90,8 @@ public class Archer : Character {
     {
         GetComponent<Renderer>().material.color = Color.red;
         isEnnemy = true;
+        life = ennemyLife;
+        startLife = life;
     }
 
     private void archerBehaviour(Character target, float step)
@@ -83,7 +100,7 @@ public class Archer : Character {
         if (target!= null)
         {
             targetPos = target.transform.position;
-        } 
+        }
 
         if (target != null || isEnnemy)
         {

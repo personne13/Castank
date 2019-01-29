@@ -9,10 +9,13 @@ public class Bomb : Weapon
     Rigidbody rb;
     List<Collider> colliders = new List<Collider>();
 
+    public static int unitDamage = 100;
+    private int ennemyDamage = 100;
+
     private void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
-        damage = 100;
+        damage = unitDamage;
     }
 
     new private void OnCollisionEnter(Collision collision)
@@ -54,5 +57,11 @@ public class Bomb : Weapon
             float explosionSpeed = 0.2f;
             transform.localScale += new Vector3(explosionSpeed, explosionSpeed, explosionSpeed);
         }
+    }
+
+    public new void SetEnnemy()
+    {
+        base.SetEnnemy();
+        damage = ennemyDamage;
     }
 }

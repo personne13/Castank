@@ -1,20 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour {
     protected Rigidbody rb;
-    protected int life = 100;
+    protected int life;
     protected float speed = 15.0f;
     protected bool isEnnemy = false;
     protected Vector3 spawnPosition;
     protected static int cost;
+    protected int ressourceGain;
+
+    protected int startLife;
 
     // Use this for initialization
     protected void Awake () {
         rb = gameObject.GetComponent<Rigidbody>();
         spawnPosition = transform.position;
-
+        startLife = life;
     }
 
     public virtual void SetEnnemy()
@@ -53,7 +57,7 @@ public class Character : MonoBehaviour {
 
 
 
-    
+
 
 
     public void damage(int d, bool ennemyDamage) {
@@ -61,7 +65,7 @@ public class Character : MonoBehaviour {
         {
             life -= d; ;
         }
-        
+
     }
 
     static public int Cost()
