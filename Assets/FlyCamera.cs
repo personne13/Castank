@@ -10,7 +10,7 @@ public class FlyCamera : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetMouseButton(1))
             {
             lastMouse = Input.mousePosition - lastMouse;
             lastMouse = new Vector3(-lastMouse.y * camSens, lastMouse.x * camSens, 0);
@@ -22,7 +22,6 @@ public class FlyCamera : MonoBehaviour
         lastMouse = Input.mousePosition;
 
         //Keyboard commands
-        float f = 0.0f;
         Vector3 p = GetBaseInput();
         
         totalRun = Mathf.Clamp(totalRun * 0.5f, 1f, 1000f);

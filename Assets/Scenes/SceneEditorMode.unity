@@ -52,7 +52,7 @@ LightmapSettings:
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 10
     m_Resolution: 2
@@ -290,8 +290,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availablePrefabs:
-  - {fileID: 8903749512857434144, guid: e39061a147d860849b42d121dced67de, type: 3}
+  - {fileID: 8903749512857434144, guid: c73b7b09f1b038f40961f10891cdca27, type: 3}
   - {fileID: 3811948027340621194, guid: 7b0e0bee8b808de408b6dd59669e731e, type: 3}
+  - {fileID: 8903749512857434144, guid: 3e857f710d556da46bde675aa198f631, type: 3}
 --- !u!4 &245399798
 Transform:
   m_ObjectHideFlags: 0
@@ -317,6 +318,7 @@ GameObject:
   - component: {fileID: 1327434687}
   - component: {fileID: 1327434686}
   - component: {fileID: 1327434685}
+  - component: {fileID: 1327434688}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -388,3 +390,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1327434688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327434684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46befefacfb34fc4895d18a5181ba9b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
